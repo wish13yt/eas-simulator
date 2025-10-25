@@ -1,4 +1,4 @@
-from hashlib import sha256
+import hashlib as hl
 import requests
 import sys
 import inquirer 
@@ -16,7 +16,7 @@ else:
     if not url.endswith("/"):
         url = url + "/"
 password = input("Please input a password to access the server: ")
-encodedpw = sha256(password.encode('utf-8')).hexdigest()
+encodedpw = hl.sha3_256(password.encode('utf-8')).hexdigest()
 data = {'password': encodedpw}
 response = requests.post(url + "/api/login", data=data)
 if response.text == "Your password wasn't valid. Try again!":
@@ -41,7 +41,7 @@ if answers['emergency'] == "Other":
     response = requests.post(url + "/api/makewarning", data=data)
 if answers['emergency'] in warnings:
     eas = warnings[answers['emergency']]
-    makedata = {'key': key, 'message': eas}
+    makedata = {'key': key, 'message': eas, 'type': answers['emergency'], 'service': url}
     makeresponse = requests.post(url + "/api/makewarning", data=makedata)
     print(eas + " was sent to the server!")
     print(makeresponse.text)
