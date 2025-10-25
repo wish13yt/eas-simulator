@@ -10,10 +10,12 @@ app = Flask(__name__)
 def index():
     if os.path.exists("eas.txt"):
         with open("eas.txt", "r") as file:
-            warning = file.read()
+            warning = linecache.getline('eas.txt', 1).rstrip('\n')
+            type = linecache.getline('eas.txt', 2).rstrip('\n')
+            messenger = linecache.getline('eas.txt', 3).rstrip('\n')
     else:
         warning = None
-    return render_template('index.html', warning=warning)
+    return render_template('index.html', warning=warning, type=type, messenger=messenger)
 
 @app.route("/api/makewarning", methods=['POST'])
 def makewarning():
