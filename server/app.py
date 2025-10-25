@@ -22,10 +22,14 @@ def makewarning():
             os.remove("key.txt")
         return "EAS warning sent!"
     return "EAS warning was not sent."
+
 @app.route("/api/getwarning", methods=["GET"])
 def getwarning():
-    with open("eas.txt", "r") as file:
-        warning = file.read() or "There is no warning at this time."
+    if not os.path.exists("eas.txt"):
+        warning = "No EAS warning is active."
+    else:
+        with open("eas.txt", "r") as file:
+            warning = file.read()
     return warning
 
 @app.route("/api/login", methods=["POST"])
