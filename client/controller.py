@@ -34,12 +34,13 @@ questions = [
             ),
 ]
 answers = inquirer.prompt(questions)
+warnings = {"Tornado": f"A Tornado Warning was issued by {url}. Take shelter, and wait for further instruction.", "Volcano": f"A Volcano Alert was issued by {url}. Evacuate as quick as you can. Avoid lava. If outside, run. Do not stay inside."}
 if answers['emergency'] == "Other":
     customeas = input("What EAS message would you like to show:")
     data = {'key': key, 'message': customeas}
     response = requests.post(url + "/api/makewarning", data=data)
-if answers['emergency'] == "Tornado":
-    eas = "A Tornado Warning was issued by " + url + ". Take shelter, and wait for further instruction."
+if answers['emergency'] in warnings:
+    eas = warnings[answers['emergency']]
     makedata = {'key': key, 'message': eas}
     makeresponse = requests.post(url + "/api/makewarning", data=makedata)
     print(eas + " was sent to the server!")
