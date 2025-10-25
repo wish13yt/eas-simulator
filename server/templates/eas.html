@@ -1,0 +1,57 @@
+<!-- created by nameswastaken on github -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAS Warning</title>
+    <style>
+        * {
+            color: white;
+            text-align: center;
+        }
+        body {
+            background-color: black;
+        }
+        #eas {
+            background-color: red;
+        }
+    </style>
+    <style>
+        @font-face {
+            font-family: 'EASFont';
+            src: url('/static/font.ttf');
+        }
+        * {
+            color: white;
+            text-align: center;
+            font-family: 'EASFont';
+        }
+        body {
+            background-color: black;
+        }
+        #eas {
+            background-color: red;
+        }
+        .bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>EMERGENCY ALERT SYSTEM</h1>
+    <marquee><h1>{{warning}}</h1></marquee> <!--where the details woiuld go-->
+    <h1>{{messenger}}</h1> <!--maybe add the ability to change this, dunno-->
+    <h1>Issued a</h1>
+    <h1>{{type}}</h1> <!--event-->
+    <hr>
+    <footer>
+       <p>Licensed under Unlicense.</p>
+        <p>NOTICE: EAS Simulator, as said in the title, is a SIMULATOR. No events are real.</p> <!--the world is ending xD-->
+    </footer>
+    </div>
+</body>
+</html>
