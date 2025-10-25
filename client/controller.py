@@ -2,9 +2,19 @@ from hashlib import sha256
 import requests
 import sys
 import inquirer 
+import os
 
 print("EAS Simulator Controller")
-url = input("Please enter the EAS server URL: ")
+if os.path.exists("server.txt"):
+    with open("server.txt", "r") as file:
+        urlserver = file.read()
+        if not urlserver.endswith("/"):
+            urlserver = urlserver + "/"
+    url = input(f"Please enter the EAS server URL: {urlserver}") or urlserver
+else:
+    url = input("Please enter the EAS server URL: ")
+    if not url.endswith("/"):
+        url = url + "/"
 password = input("Please input a password to access the server: ")
 encodedpw = sha256(password.encode('utf-8')).hexdigest()
 data = {'password': encodedpw}
@@ -14,6 +24,9 @@ if response.text == "Your password wasn't valid. Try again!":
     sys.exit()
 else:
     key = response.text
+    with open("server.txt", "w") as file:
+        file.write(url)
+        print("The server URL has been saved as your default server. To clear, delete 'server.txt'")
 questions = [
     inquirer.List('emergency',
                 message="Quick Emergency Menu",
