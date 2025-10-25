@@ -54,6 +54,8 @@ def revoke():
     if sentkey == key:
         if os.path.exists("eas.txt"):
             os.remove("eas.txt")
+        if os.path.exists("key.txt"):
+            os.remove("key.txt")
         return "EAS revoked!"
     else:
         return "Key invalid!"
