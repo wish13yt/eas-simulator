@@ -7,7 +7,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    if os.path.exists("eas.txt"):
+        with open("eas.txt", "r") as file:
+            warning = file.read()
+    else:
+        warning = None
+    return render_template('index.html', warning=warning)
 
 @app.route("/api/makewarning", methods=['POST'])
 def makewarning():
