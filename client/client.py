@@ -7,6 +7,7 @@ print("What URL would you like to use (ex: https://example.com)")
 url = input("")
 if not url.endswith("/"):
     url = url + "/"
+print("Great! You are set for alerts from " + url + "!")
 while True:
     time.sleep(5)
     response = requests.get(url + "api/getwarning")
