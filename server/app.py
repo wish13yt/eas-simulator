@@ -11,8 +11,6 @@ def index():
     if os.path.exists("eas.txt"):
         with open("eas.txt", "r") as file:
             warning = linecache.getline('eas.txt', 1).rstrip('\n')
-            type = linecache.getline('eas.txt', 2).rstrip('\n')
-            messenger = linecache.getline('eas.txt', 3).rstrip('\n')
     else:
         warning = None
     return render_template('index.html', warning=warning)
@@ -27,6 +25,7 @@ def fulleas():
             return render_template('eas.html', warning=warning, type=type, messenger=messenger)
     else:
         return "No EAS is active."
+    
 @app.route("/api/makewarning", methods=['POST'])
 def makewarning():
     warning = request.form['message']
@@ -36,10 +35,10 @@ def makewarning():
     with open("key.txt", "r") as file:
         key = file.read()
     if sentkey == key:
-        with open("eas.txt", "w") as easfile:
-            easfile.write(f"{warning}\n{type}\n{service}")
         if os.path.exists("key.txt"):
             os.remove("key.txt")
+        with open("eas.txt", "w") as easfile:
+            easfile.write(f"{warning}\n{type}\n{service}")
         return "EAS warning sent!"
     return "EAS warning was not sent."
 
@@ -54,10 +53,10 @@ def getwarning():
 @app.route("/api/gettype", methods=["GET"])
 def gettype():
     if not os.path.exists("eas.txt"):
-        type = "No EAS warning is active."
+        eastype = "No EAS warning is active."
     else:
-        type = linecache.getline('eas.txt', 2).rstrip('\n')
-    return type
+        eastype = linecache.getline('eas.txt', 2).rstrip('\n')
+    return eastype
 
 @app.route("/api/getmessenger", methods=["GET"])
 def getmessenger():

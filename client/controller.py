@@ -41,9 +41,8 @@ if answers['emergency'] == "Other":
     response = requests.post(url + "/api/makewarning", data=data)
 if answers['emergency'] in warnings:
     eas = warnings[answers['emergency']]
-    makedata = {'key': key, 'message': eas, 'type': answers['emergency'], 'service': url}
+    makedata = {'key': key, 'message': eas, 'type': answers['emergency'] + " Warning", 'service': url}
     makeresponse = requests.post(url + "/api/makewarning", data=makedata)
-    print(eas + " was sent to the server!")
     print(makeresponse.text)
 if answers['emergency'] == "Revoke Warning":
     data = {'key': key}
